@@ -1,0 +1,83 @@
+{% extends "index.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/player_team_select.css') }}">
+<script type="text/javascript" defer src="{{ url_for('static', filename='js/player_team_select.js') }}"></script>
+{% endblock css %}
+
+
+{% block section %}   
+
+
+<form action="/player_team_select" method="POST" id="teamForm">
+    <h1>팀을 선택하세요.</h1>
+    
+    <div class="team_box">
+        
+        <label class="team" data-team="SSG">
+            <input type="radio" name="team" value="SSG">
+            <img src="static/img/SSG.png" alt="SSG 랜더스">
+            <h2>SSG 랜더스</h2>
+        </label>
+
+        <label class="team" data-team="키움">
+            <input type="radio" name="team" value="키움">
+            <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+            <h2 >키움 히어로즈</h2>
+        </label>
+        
+        <label class="team" data-team="LG">
+            <input type="radio" name="team" value="LG">
+            <img src="static/img/LG.png" alt="LG 트윈스">
+            <h2>LG 트윈스</h2>
+        </label>
+        
+        <label class="team" data-team="KT">
+            <input type="radio" name="team" value="KT">
+            <img src="static/img/KT.png" alt="KT 위즈">
+            <h2>KT 위즈</h2>
+        </label>
+        
+        <label class="team" data-team="KIA">
+            <input type="radio" name="team" value="KIA">
+            <img src="static/img/KIA.png" alt="KIA 타이거즈">
+            <h2>KIA 타이거즈</h2>
+        </label>
+        
+        <label class="team" data-team="NC">
+            <input type="radio" name="team" value="NC">
+            <img src="static/img/NC.png" alt="NC 다이노스">
+            <h2>NC 다이노스</h2>
+        </label>
+        
+        <label class="team" data-team="삼성">
+            <input type="radio" name="team" value="삼성">
+            <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+            <h2>삼성 라이온즈</h2>
+        </label>
+        
+        <label class="team" data-team="롯데">
+            <input type="radio" name="team" value="롯데">
+            <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+            <h2>롯데 자이언츠</h2>
+        </label>
+        
+        <label class="team" data-team="두산">
+            <input type="radio" name="team" value="두산">
+            <img src="static/img/Doosan.png" alt="두산 베어스">
+            <h2>두산 베어스</h2>
+        </label>
+        
+        <label class="team" data-team="한화">
+            <input type="radio" name="team" value="한화">
+            <img src="static/img/Hanwha.png" alt="한화 이글스">
+            <h2>한화 이글스</h2>
+        </label>
+
+        <input type="submit" value="선택">
+    </div>
+      
+</form>  
+    
+{% endblock section %}   

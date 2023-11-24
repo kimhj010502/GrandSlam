@@ -1,0 +1,20 @@
+/* 그래프 */
+.plot_box {
+    text-align: center;
+    margin: 0 auto;
+    margin-left: 200px;
+    width: 1000px;
+    height: 700px;
+    margin-top: 50px;
+}
+
+.plot {
+    width: 1000px;
+    height: 50px;
+}
+
+.plot iframe {
+    width: 1000px;
+    height: 600px;
+}
+

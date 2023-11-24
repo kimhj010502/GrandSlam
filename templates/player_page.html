@@ -1,0 +1,149 @@
+{% extends "index.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/player_page.css') }}">
+<script type="text/javascript" defer src="{{ url_for('static', filename='js/player_page.js') }}"></script>
+{% endblock css %}
+
+
+{% block section %}
+
+<h1 id="player_name">{{player[0]}}</h1>
+
+{% if player %}
+<div class="player_info_box">
+    <div class="player_img">
+        <img src={{player_info[10]}} alt={{player_info[0]}}>
+        <p class="team_player">{{team_info[1]}} {{player_info[1]}} {{player_info[0]}}</p>
+    </div>
+
+    <form action="/submit_my_player" method="POST" id="myTeamForm">
+        
+    {% if session['UserId'] %}
+        {% if my_player == 1 %}
+        <button class="my_player_button" id="my_player" value="1"><img id="my_player_img" src="/static/img/like.png" alt="My Player 설정" onclick="click_my_player()"></button>
+        {% else %}
+        <button class="my_player_button" id="my_player" value="0"><img id="my_player_img" src="/static/img/unlike.png" alt="My Player 설정" onclick="click_my_player()"></button>
+        {% endif %}
+    {% else %}
+    <button class="my_player_button" id="my_player" value="0"><img id="my_player_img" src="/static/img/unlike.png" alt="My Player 설정" onclick="fail_my_player()"></button>
+    {% endif %}
+    
+    <input type="hidden" id="like" name="like" value="2">
+    
+    <div class="info_total_box">
+        <div class="info_box">
+            <p class="player_info">• 생년월일: {{player_info[2]}}</p>
+            <p class="player_info">• 포지션: {{player_info[3]}}</p>
+            <p class="player_info">• 신장/체중: {{player_info[4]}}</p>
+            <p class="player_info">• 경력: {{player_info[5]}}</p>
+        </div>
+
+        <div class="info_box">
+            <p class="player_info">• 입단 계약금: {{player_info[6]}}</p>
+            <p class="player_info">• 연봉: {{player_info[7]}}</p>
+            <p class="player_info">• 지명순위: {{player_info[8]}}</p>
+            <p class="player_info">• 입단년도: {{player_info[9]}}</p>
+        </div>
+    </div>
+    
+    </form>
+</div>
+
+
+
+<!-- 옵션 선택 -->
+
+<div class="year_select">
+    <form action="/player_year_position_record" method="post" onsubmit="return validateForm();">
+        <!-- 연도 선택 -->
+        <select name="year">
+            <option value="none" selected>연도 선택</option>
+            <option>2022</option>
+            <option>2021</option>
+            <option>2020</option>
+            <option>2019</option>
+            <option>2018</option>
+        </select>
+        
+        
+        <!-- 포지션 선택 -->
+        <select name="position">
+            <option value="none" selected>포지션 선택</option>
+            <option>투수</option>
+            <option>공격</option>
+            <option>수비</option>
+        </select>
+
+        <input type="submit" value="선택">
+    </form>
+</div>
+
+<h1 id="player_plot" style="display: none;">{{player_plot}}</h1>
+{% if player_plot > 0 %}
+
+    <!--투수-->
+    {% if player_plot == 1 %}
+    <div class="plot_box">
+        <div class="plot">
+            <h1>{{year}}년 투수 기록 통계</h1>
+            <iframe src="{{player_plot_path}}">투수 기록</iframe>
+        </div>
+    </div>
+    
+
+    <!--공격-->
+    {% elif player_plot == 2 %}
+    <div class="plot_box">
+        <div class="plot">
+            <h1>{{year}}년 공격 기록 통계</h1>
+            <iframe src="{{player_plot_path}}">투수 기록</iframe>
+        </div>
+    </div>
+
+    <!--수비-->
+    {% else %}
+    <div class="plot_box">
+        <div class="plot">
+            <h1>{{year}}년 수비 기록 통계</h1>
+            <iframe src="{{player_plot_path}}">투수 기록</iframe>
+        </div>
+    </div>
+
+    {% endif %}
+<!-- 연도 옵션 선택 
+
+<div class="year_select">
+    <form action="/team_year_record" method="post" onsubmit="return validateForm();">
+        <!-- 팀 선택 
+        <select name="year">
+            <option value="none" selected>연도 선택</option>
+            <option>2022</option>
+            <option>2021</option>
+            <option>2020</option>
+            <option>2019</option>
+            <option>2018</option>
+        </select>
+
+        <input type="submit" value="선택">
+    </form>
+</div>
+
+<div class="plot_box">
+    <div class="plot">
+        <h1>최근 5년 승률</h1>
+        <iframe src="{{player_plot_path}}">선수 기록</iframe>
+    </div>
+
+    <div class="plot">
+        <h1>{{year}}년 팀 기록 통계</h1>
+        <iframe src="{{team_year_plot_path}}">팀 기록 통계</iframe>
+    </div>
+</div>
+-->
+ 
+{% endif %}
+
+{% endif %}
+
+{% endblock section %}

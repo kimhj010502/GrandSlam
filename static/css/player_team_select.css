@@ -1,0 +1,43 @@
+h1 {
+    margin-top: 50px;
+}
+
+
+
+
+
+
+/* 팀 이미지 */
+.team_box {
+    display: inline-block;
+    position: relative;
+    width: 1400px;
+}
+
+input {
+    display: none;
+}
+
+.team {
+    display: inline-block;
+    position: relative;
+    width: 260px;
+    margin-left: 8px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: transparent;
+}
+
+.team:hover {
+    cursor: pointer;
+    background-color: #A9BCF5;
+}
+
+.team img {
+    width: 255px;
+}
+
+
+
+
+

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block css %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+        {% endblock css %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/components.css') }}"/>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script type="text/javascript" defer src="{{ url_for('static', filename='js/index.js') }}"></script>
+    </head>
+
+    <body class="body_box">
+        
+        <div class="logo_container" style="margin-bottom: 8px; margin-top: 8px;">
+            <a href="/"><img class="logo" src="static/img/logo.png" alt="logofailed"/></a>
+        </div>
+        
+        {% if session['UserId'] %}
+        <p class="user_id">{{session['UserId']}}님</p>
+        {% endif %}
+        
+        <div class="nav_bar">
+            <ul class="nav_bar_left">
+                <li><a href="/match">일정/결과</a></li>
+                <li><a href="/ranking">순위</a></li>
+                <li><a href="/team_select">팀 기록</a></li>
+                <li><a href="/player_team_select">선수 기록</a></li>
+            </ul>
+            
+            <ul class="nav_bar_right">
+                {% if session['UserId'] %}
+                <li><a href="/logout">로그아웃</a></li>
+                <li><a class="mypage_btn" href="/mypage">마이페이지</a></li>
+                {% else %}
+                <li><a href="/login">로그인</a></li>
+                <li><a class="mypage_btn" onclick=fail_mypage()>마이페이지</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        
+        {% block section %}
+        <div class="match_box">
+            <h1>오늘의 경기</h1>
+            {% if game_cnt == 0 %}
+            <h2>경기가 없습니다.</h2>
+            
+            {% else %}
+                {% for match in match_list %}
+                <div class="match">
+                  
+                    <!-- 경기취소 -->
+                    {% if match[2] == '경기취소' or match[2] == '경기예정' %}
+                    
+                    <!-- 경기장, 경기 시간 -->
+                    <h2>{{match[0]}} {{match[1]}}</h2>
+                    
+                        <div class="team1" style="background-color: #E6E6E6">
+                            <h2 class="name">{{match[3]}}</h2>
+                            <div class="team">
+                                {% if match[3] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[3] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[3] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[3] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[3] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[3] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[3] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[3] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[3] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[3] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">경기</h1>
+                                <h2 class="pitcher">{{match[5]}}</h2>
+                            </div>
+                        </div>
+
+                        <div class="team2" style="background-color: #E6E6E6">
+                            <h2 class="name">{{match[4]}}</h2>
+                            <div class="team">
+                                {% if match[4] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[4] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[4] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[4] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[4] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[4] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[4] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[4] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[4] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[4] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">{{match[2][2:]}}</h1>
+                                <h2 class="pitcher">{{match[6]}}</h2>
+                            </div>
+                        </div>
+                    
+                    <!-- 경기종료 -->
+                    {% elif match[2] == '경기종료' %}
+                    
+                    <!-- 경기장, 경기 시간 -->
+                    <h2>{{match[0]}} {{match[1]}}</h2>
+                    
+                        <!-- 비긴 경우 -->                    
+                        {% if match[4] == match[6] %}
+                        <div class="team1" style="background-color: #E6E6E6">
+                            <h2 class="name">{{match[3]}}</h2>
+                            <div class="team">
+                                {% if match[3] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[3] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[3] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[3] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[3] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[3] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[3] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[3] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[3] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[3] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">{{match[4]}}</h1>
+                                <h2 class="pitcher">{{match[7]}}</h2>
+                            </div>
+                        </div>
+
+                        <div class="team2" style="background-color: #E6E6E6">
+                            <h2 class="name">{{match[5]}}</h2>
+                            <div class="team">
+                                {% if match[5] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[5] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[5] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[5] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[5] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[5] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[5] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[5] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[5] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[5] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">{{match[6]}}</h1>
+                                <h2 class="pitcher">{{match[8]}}</h2>
+                            </div>
+                        </div>
+
+                        <!-- 첫 번째 팀이 이긴 경우 -->
+                        {% elif match[4] > match[6] %}
+                        <div class="team1" style="background-color: #A9F5A9">
+                            <h2 class="name">{{match[3]}}</h2>
+                            <div class="team">
+                                {% if match[3] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[3] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[3] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[3] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[3] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[3] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[3] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[3] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[3] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[3] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">{{match[4]}}</h1>
+                                <h2 class="pitcher">{{match[7]}}</h2>
+                            </div>
+                        </div>
+
+                        <div class="team2" style="background-color: #F5A9A9">
+                            <h2 class="name">{{match[5]}}</h2>
+                            <div class="team">
+                                {% if match[5] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[5] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[5] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[5] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[5] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[5] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[5] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[5] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[5] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[5] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">{{match[6]}}</h1>
+                                <h2 class="pitcher">{{match[8]}}</h2>
+                            </div>
+                        </div>
+
+                        <!-- 두 번째 팀이 이긴 경우 -->
+                        {% else %}
+                        <div class="team1" style="background-color: #F5A9A9">
+                            <h2 class="name">{{match[3]}}</h2>
+                            <div class="team">
+                                {% if match[3] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[3] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[3] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[3] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[3] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[3] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[3] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[3] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[3] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[3] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">{{match[4]}}</h1>
+                                <h2 class="pitcher">{{match[7]}}</h2>
+                            </div>
+                        </div>
+
+                        <div class="team2" style="background-color: #A9F5A9">
+                            <h2 class="name">{{match[5]}}</h2>
+                            <div class="team">
+                                {% if match[5] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[5] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[5] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[5] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[5] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[5] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[5] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[5] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[5] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[5] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">{{match[6]}}</h1>
+                                <h2 class="pitcher">{{match[8]}}</h2>
+                            </div>
+                        </div>     
+                        {% endif %}
+                    
+                    <!-- 경기중 -->
+                    {% else %}
+                    <!-- 경기장, 현재 이닝 -->
+                    <h2>{{match[0]}} <span style="color:red;">{{match[2]}}</span></h2>
+                    
+                        <div class="team1" style="background-color: #A9BCF5">
+                            <h2 class="name">{{match[3]}}</h2>
+                            <div class="team">
+                                {% if match[3] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[3] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[3] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[3] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[3] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[3] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[3] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[3] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[3] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[3] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">{{match[4]}}</h1>
+                                <h2 class="pitcher">{{match[7]}}</h2>
+                            </div>
+                        </div>
+
+                        <div class="team2" style="background-color: #A9BCF5">
+                            <h2 class="name">{{match[5]}}</h2>
+                            <div class="team">
+                                {% if match[5] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                                {% elif match[5] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                                {% elif match[5] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                                {% elif match[5] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                                {% elif match[5] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                                {% elif match[5] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                                {% elif match[5] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                                {% elif match[5] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                                {% elif match[5] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                                {% elif match[5] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                                {% endif %}
+                                <h1 class="score">{{match[6]}}</h1>
+                                <h2 class="pitcher">{{match[8]}}</h2>
+                            </div>
+                        </div>
+                    
+                    
+                    {% endif %}
+                
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div class="ranking">
+            <h1>현재 팀 순위</h1>
+            <table>
+                <thead>
+                    <tr>
+                    <th>순위</th>
+                    <th>팀</th>
+                    <th>경기수</th>
+                    <th>승</th>
+                    <th>패</th>
+                    <th>무</th>
+                    <th>승차</th>
+                    <th>승률</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rank %}
+                    <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>
+                        {% if row[1] == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+                        {% elif row[1] == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+                        {% elif row[1] == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+                        {% elif row[1] == 'KT' %} <img src="static/img/KT.png" alt="KT 위즈">
+                        {% elif row[1] == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+                        {% elif row[1] == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+                        {% elif row[1] == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+                        {% elif row[1] == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+                        {% elif row[1] == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+                        {% elif row[1] == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+                        {% endif %}
+                        <p class="team_name">{{ row[1] }}</p>
+                    </td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                    <td style="color: red;">{{ row[7] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        {% endblock section %}
+        <div class="team_list">
+            <a href="http://www.ssglanders.com" target="_blank"><img src="static/img/SSG.png" alt="SSG 랜더스"></a>
+            <a href="http://www.heroesbaseball.co.kr/index.do" target="_blank"><img src="static/img/Kiwoom.png" alt="키움 히어로즈"></a>
+            <a href="https://www.lgtwins.com/" target="_blank"><img src="static/img/LG.png" alt="LG 트윈스"></a>
+            <a href="https://www.ktwiz.co.kr/sports/site/baseball/main.do" target="_blank"><img src="static/img/KT.png" alt="KT 위즈"></a>
+            <a href="https://tigers.co.kr/" target="_blank"><img src="static/img/KIA.png" alt="KIA 타이거즈"></a>
+            <a href="https://www.ncdinos.com/" target="_blank"><img src="static/img/NC.png" alt="NC 다이노스"></a>
+            <a href="http://www.samsunglions.com/" target="_blank"><img src="static/img/Samsung.png" alt="삼성 라이온즈"></a>
+            <a href="https://www.giantsclub.com/html/" target="_blank"><img src="static/img/Lotte.png" alt="롯데 자이언츠"></a>
+            <a href="https://www.doosanbears.com/" target="_blank"><img src="static/img/Doosan.png" alt="두산 베어스"></a>
+            <a href="https://www.hanwhaeagles.co.kr/" target="_blank"><img src="static/img/Hanwha.png" alt="한화 이글스"></a>
+            
+        </div>
+    </body>
+    
+    <footer>
+        Copyright 2023. GrandSlam. All Rights Reserved.
+    </footer>
+</html>

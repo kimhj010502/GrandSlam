@@ -1,0 +1,58 @@
+.team_img {
+    display: flex;
+    float: none;
+    width: 250px;
+	text-align: center;
+}
+
+.team_img img {
+    display: inline-block;
+    position: relative;
+    float: left;
+    width: 130px;
+    height: 130px;
+}
+
+.team_img h1 {
+    display: inline-block;
+    position: relative;
+    float: left;
+    height: 130px;
+    width: 80px;
+    margin: 0 0;
+    text-align: center;
+    line-height: 130px;
+}
+
+/* 선수 이미지 */
+.player_box {
+    display: inline-block;
+    position: relative;
+    width: 1400px;
+}
+
+input {
+    display: none;
+}
+
+.player {
+    display: inline-block;
+    position: relative;
+    width: 266px;
+    margin-left: 8px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: transparent;
+}
+
+.player:hover {
+    cursor: pointer;
+    background-color: #A9BCF5;
+}
+
+.player img {
+    width: 255px;
+    margin-left: 5px;
+    margin-top: 8px;
+}
+

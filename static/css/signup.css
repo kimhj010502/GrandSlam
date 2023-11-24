@@ -1,0 +1,82 @@
+.signup_box {
+    display: inline-block;
+    float: none;
+    width: 370px;
+}
+
+#alert {
+    border-color: transparent;
+}
+
+.input_box {
+    display: inline-block;
+    position: relative;
+    float: left;
+    width: 350px;
+    height: 150px;
+    margin: 10px;
+}
+
+.id_pw_box {
+    display: inline-block;
+    position: relative;
+    width: 350px;
+    height: 60px;
+    margin: 10px;
+}
+
+.id_pw {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+    width: 110px;
+    height: 43px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: #819FF7;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+    color: white;
+    line-height: 43px;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.input_id_pw {
+    position: relative;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    height: 40px;
+    width: 200px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    line-height: 40px;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.signup_button {
+    display: inline-block;
+    position: relative;
+    margin-top: 120px;
+    margin-left: 120px;
+    padding: 10px;
+    border-radius: 5px;
+    height: 60px;
+    width: 140px;
+    background-color: #002561;
+    color: white;
+    border: transparent;
+    font-weight: 500;
+    font-size: 25px;
+    
+}
+
+.signup_button:hover {
+    cursor: pointer;
+    background-color: #819FF7;
+    color: #002561;
+}

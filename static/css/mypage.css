@@ -1,0 +1,108 @@
+.my_page_box {
+    width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    border: 5px solid #002561;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.my_page_text {
+    background-color: #002561; 
+    color: white; 
+    width: 1400px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+	text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+    
+}
+
+
+/* My Team */
+
+.my_team_box {
+    display: inline-block;
+    position: relative;
+    border: transparent;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: calc(var(--team-box-height) * 300px);   
+    width: calc(var(--team-box-width) * 280px);
+}
+
+.team_img {
+    display: inline-block;
+    position: relative;
+    float: left;
+    width: 250px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: transparent;
+    background-color: transparent;
+}
+
+.team_img:hover {
+    cursor: pointer;
+    background-color: #A9BCF5;
+}
+
+.team_img img {
+    display: inline-block;
+    position: relative;
+    float: left;
+    margin-left: -15px;
+    width: 270px;
+    height: 270px;
+}
+
+
+/* My Player */
+
+.my_player_box {
+    display: inline-block;
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: calc(var(--player-box-width) * 280px);
+    height: calc(var(--player-box-height) * 300px);   
+}
+
+.player_img {
+    display: inline-block;
+    position: relative;
+    float: left;
+    width: 250px;
+    height: 360px;
+    margin-left: 25px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    border: transparent;
+    background-color: transparent;
+}
+
+.player_img:hover {
+    cursor: pointer;
+    background-color: #A9BCF5;
+}
+
+.player_img img {
+    display: inline-block;
+    position: relative;
+    float: left;
+    height: 280px;
+    margin-left: 9px;
+    margin-top: 10px;
+}
+
+.player_img h2 {
+    display: inline-block;
+    position: relative;
+    width: 250px;
+    height: 50px;
+}

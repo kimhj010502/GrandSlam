@@ -1,0 +1,171 @@
+.player_info_box {
+    width: 1400px;
+    border: 5px solid #002561;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 450px;
+}
+
+
+.player_img img {
+    display: inline-block;
+    position: relative;
+    float: left;
+    height: 280px;
+    margin-left: 10px;
+    margin-top: 80px;
+}
+
+#player_name {
+    display: none;
+}
+
+.team_player {
+    display: inline-block;
+    position: relative;
+    float: left;
+    font-size: 50px;
+    font-weight: 800;
+    height: 280px;
+    margin-left: 20px;
+    margin-top: 40px;
+}
+
+button {
+    display: inline-block;
+    position: relative;
+    float: left;
+    border: transparent;
+    background-color: transparent;
+}
+
+/* My 팀 설정 버튼 */
+#my_player_img {
+    display: inline-block;
+    position: relative;
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-top: 48px;
+    margin-left: 20px;
+}
+
+#my_player_img:hover {
+    cursor:pointer;
+}
+
+
+.info_total_box {
+    position: relative;
+    float: left;
+    display: inline-block;
+    margin-left: 240px;
+    height: 280px;
+    width: 1150px;
+    margin-top: -260px;
+}
+
+.info_box {
+    position: relative;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 280px;
+    width: 570px;
+}
+
+.player_info {
+    display: inline-block;
+    position: relative;
+    float: left;
+    font-size: 30px;
+    font-weight: 700;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 0;
+    margin-left: 20px;
+}
+
+
+/* 툴팁 */
+.tooltiptext {
+    visibility: hidden;
+    background-color: #002561;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    font-weight: 700;
+    position: absolute;
+    z-index: 1;
+    width: 400px;
+    margin-left: 30px;
+}
+
+#tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+/* 연도 선택 */
+
+.year_select {
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+
+select {
+    display: inline-block;
+    position: relative;
+    float: left;
+    width: 130px;
+    height: 50px;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+input {
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 52px;
+    margin-left: 20px;
+    font-size: 25px;
+    background-color: #002561;
+    color: white;
+    border-radius: 5px;
+    border: #002561;
+}
+
+input:hover {
+    cursor: pointer;
+    background-color: #819FF7;
+    color: #002561;
+}
+
+
+
+/* 그래프 */
+.plot_box {
+    text-align: center;
+    margin: 0 auto;
+    margin-left: 200px;
+    width: 1000px;
+    height: 700px;
+}
+
+.plot {
+    width: 1000px;
+    height: 50px;
+}
+
+.plot iframe {
+    width: 1000px;
+    height: 600px;
+}
+

@@ -1,0 +1,82 @@
+/* 날짜 */
+.date_box {
+    display: flex;
+    float: none;
+	text-align: center;
+}
+
+.date_box h1 {
+    margin-left: 0px;
+    margin-bottom: 60px;
+}
+
+input {
+    position: relative;
+	top: 30px;
+    width: 80px;
+}
+
+/* 경기 정보 */
+.match_box {
+    display: inline-block;
+    position: relative;
+    width: calc(var(--width-size) * 280px);
+}
+
+.match {
+    display: inline-block;
+    position: relative;
+    width: 255px;
+    height: 340px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    border: 3px solid #002561;
+}
+
+.team1 {
+    display: inline-block;
+    position: relative;
+    margin-left: 6px;
+    width: 117px;
+    border-radius: 5px;
+}
+
+.team2 {
+    display: inline-block;
+    position: relative;
+    margin-left: 3px;
+    width: 117px;
+    border-radius: 5px;
+
+}
+
+.team img {
+    width: 120px;
+    margin-top: -30px;
+}
+
+.team h1 {
+    margin-top: -10px;
+}
+
+.team h2 {
+    margin-top: -10px;
+}
+
+/* 버튼 스타일 */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* 버튼 호버 효과 */
+.button:hover {
+    background-color: #45a049;
+}

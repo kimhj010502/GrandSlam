@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ranking.css') }}">
+<script type="text/javascript" defer src="{{ url_for('static', filename='js/ranking.js') }}"></script>
+{% endblock css %}
+
+
+{% block section %}
+<div class="plot_box">
+    <div class="plot">
+        <h1>2018~2023년 팀별 순위 변화</h1>
+        <iframe src="{{plot2_path}}">2018~2023년 팀별 순위 변화</iframe>
+    </div>
+</div>
+
+<div class="plot_box">
+    <div class="plot">
+        <h1>2023년 예측 vs 현재 순위</h1>
+        <iframe src="{{plot1_path}}">2023년 예측 vs 실제 순위</iframe>
+    </div>
+</div>
+
+<div class="plot_box">
+    <div class="plot">
+        <h1>2023년 예측 vs 현재 팀별 순위 변화</h1>
+        <iframe src="{{plot3_path}}">2023년 예측 vs 현재 팀별 순위 변화</iframe>
+    </div>
+</div>
+{% endblock section %}

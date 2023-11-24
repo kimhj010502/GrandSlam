@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
+<script type="text/javascript" defer src="{{ url_for('static', filename='js/signup.js') }}"></script>
+{% endblock css %}
+
+
+{% block section %}
+
+{% with mesg = get_flashed_messages() %}
+    {% if mesg != [] %}
+        <script>alert("{{mesg[0]}}")</script>
+    {% endif %}
+{% endwith %} 
+    
+<div class="signup_box">
+    <h1>회원가입</h1>
+
+    <form method="post" action="/submit_signup">
+        <div class="input_box">
+            <div class="id_pw_box">
+                <div class="id_pw">ID</div>
+                <input class="input_id_pw" type="text" name="id" placeholder="아이디" id="id"/>
+            </div>
+
+            <div class="id_pw_box">
+                <div class="id_pw">PW</div>
+                <input class="input_id_pw" type="password" name="password" placeholder="비밀번호" id="password"/>
+            </div>
+            
+            <div class="id_pw_box">
+                <div class="id_pw">PW확인</div>
+                <input class="input_id_pw" type="password" name="check_password" placeholder="비밀번호 확인" id="check_password"/>
+            </div>
+        </div>
+        
+        <button class="signup_button" id="signup">회원가입</button>
+    </form>
+</div>
+
+
+{% endblock section %}   

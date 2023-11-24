@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/player_select.css') }}">
+<script type="text/javascript" defer src="{{ url_for('static', filename='js/player_select.js') }}"></script>
+{% endblock css %}
+
+
+{% block section %}
+
+<div class="team_img">
+    {% if team == 'SSG' %} <img src="static/img/SSG.png" alt="SSG 랜더스">
+    {% elif team == '키움' %} <img src="static/img/Kiwoom.png" alt="키움 히어로즈">
+    {% elif team == 'LG' %} <img src="static/img/LG.png" alt="LG 트윈스">
+    {% elif team == 'KT' %} <img src="static/img/KT.png" alt="kt wiz">
+    {% elif team == 'KIA' %} <img src="static/img/KIA.png" alt="KIA 타이거즈">
+    {% elif team == 'NC' %} <img src="static/img/NC.png" alt="NC 다이노스">
+    {% elif team == '삼성' %} <img src="static/img/Samsung.png" alt="삼성 라이온즈">
+    {% elif team == '롯데' %} <img src="static/img/Lotte.png" alt="롯데 자이언츠">
+    {% elif team == '두산' %} <img src="static/img/Doosan.png" alt="두산 베어스">
+    {% elif team == '한화' %} <img src="static/img/Hanwha.png" alt="한화 이글스">
+    {% endif %}
+    <h1 id="team_name">{{team}}</h1>
+</div>
+
+<form action="/player_select" method="POST" id="playerForm">
+    
+    <h1>선수를 선택하세요</h1>
+
+    <div class="player_box">
+        {% for player in team_player %}
+        <label class="player" data-player="{{player[1]}}">
+            <input type="radio" name="player" value="{{player[1]}}">
+            <img src="{{player[10]}}" alt="{{player[0]}}">
+            <h2>{{player[1]}} {{player[0]}}</h2>
+        </label>
+        {% endfor %}
+    </div>
+</form>
+
+
+{% endblock section %}   
